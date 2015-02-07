@@ -35,12 +35,33 @@ Plugin 'AutoComplPop'                     " Syntax Completion For C++, C, Python
 Plugin 'auto-pairs-gentle'                " Auto insert matching brackets
 Plugin 'autoswap.vim'                     " Make vim stop with swap messages intelligently
 Plugin 'godlygeek/tabular'                " Beautiful Alignment when needed
+Plugin 'cmdalias.vim'                     " Set up alias for accidental commands
+
 call vundle#end()                         " Vundle ends here
 
 syntax on
 filetype plugin indent on
+let g:airline_powerline_fonts = 1
 
-colorscheme jellybeans
+colorscheme jellybeans                    " Set active Colorscheme
+                                          " start commands with ; not :
+nnoremap ; :
+                                          " Indent everything in insert mode
+inoremap <F10> <Esc>mmgg=G`ma
+                                          " Indent everything in normal mode
+nnoremap <F10> <Esc>mmgg=G`m
+                                          " Turn on/off current line highlight
+nnoremap <F12> :set cul!<CR>
+                                          " Show open buffers and help in quick switching
+nnoremap <F5> :buffers<CR>:buffer<Space>
+                                          " comment current line with //
+nmap // <leader>ci
+                                          " w!! force write with sudo even if forgot sudo vim
+cmap w!! w !sudo tee > /dev/null %
+                                          " Alias for typing mistakes
+map :Q :q
+map :W :w
+
 
 set backspace=indent,eol,start            " Make backspace work with end of line and indents
 set foldmethod=indent                     " Auto Add folds - Trigger with za
@@ -58,13 +79,6 @@ set autoindent                            " Self explained
 set relativenumber                        " relative numbering (Current line in line 0)
 set number                                " Line numbers - Hybrid mode when used with relativenumber
 set nowrap                                " I don't like wrapping statements
-
-nnoremap ; :
-nnoremap <F5> :buffers<CR>:buffer<Space>
-nnoremap <F10> <Esc>mmgg=G`m
-inoremap <F10> <Esc>mmgg=G`ma
-nmap // <leader>ci
-cmap w!! w !sudo tee > /dev/null %
 
 set directory=.,$TEMP                     " Gets rid of a windows specific error
 set guioptions-=m                         " remove menu bar
