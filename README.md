@@ -6,9 +6,11 @@ So I present to you, fully cross-compatible vimrc for linux and Windows.
 
 All you need to do is install Vundle for vim and put this in your home folder 
 
-Path : ~/.vimrc for linux
+Path : 
 
-       $HOME/_vimrc for windows
+   ~/.vimrc for linux
+
+   $HOME/_vimrc for windows
      
 Instructions on installing Vundle : 
 ```
