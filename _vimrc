@@ -31,7 +31,7 @@ Plugin 'marcweber/vim-addon-mw-utils'                                           
 Plugin 'garbas/vim-snipmate'                                                          " Snippets for reusable code
 Plugin 'tpope/vim-fugitive'                                                           " Git Wrapper
 Plugin 'tomtom/tlib_vim'                                                              " Needed for SnipMate :(
-Plugin 'AutoComplPop'                                                                 " Syntax Completion For C++, C, Python
+"Plugin 'AutoComplPop'                                                                " Syntax Completion For C++, C, Python
 Plugin 'auto-pairs-gentle'                                                            " Auto insert matching brackets
 Plugin 'autoswap.vim'                                                                 " Make vim stop with swap messages intelligently
 Plugin 'godlygeek/tabular'                                                            " Beautiful Alignment when needed
@@ -44,6 +44,7 @@ Plugin 'bling/vim-airline'                                                      
 Plugin 'kien/ctrlp.vim'                                                               " Fast fuzzy file searching
 Plugin 'terryma/vim-multiple-cursors'                                                 " Multiple Cursors like Sublime Text
 Plugin 'LaTeX-Suite-aka-Vim-LaTeX'                                                    " LaTeX editing for vim
+Plugin 'kchmck/vim-coffee-script'                                                     " Highlighting and syntax for coffeescript
 
 call vundle#end()                                                                     " Vundle ends here
 
@@ -77,6 +78,7 @@ inoremap ,. <Esc>
 nnoremap  <silent>   <tab>  :bnext<CR>
 nnoremap  <silent> <s-tab>  :bprevious<CR>
                                                                                       " Switch buffers with Tab and Shift-Tab
+inoremap <// </<C-X><C-O><C-[>m'==`'
 nnoremap <F3> :w<CR>:!pdflatex<Space>%<CR>:!evince<Space>%:r.pdf<CR>
 
 
@@ -100,17 +102,9 @@ set relativenumber                                                              
 set number                                                                            " Line numbers - Hybrid mode when used with rnu
 set wrap                                                                              " I do like wrapping statements
 set laststatus=2                                                                      " Show status line for even 1 file
+set tags=~/.mytags                                                                    " Path to generated tags
 let g:airline_powerline_fonts = 1                                                     " Powerline fonts
 let g:airline#extensions#tabline#enabled = 1                                          " Show buffers above
-                                  "---------------------------HABIT BREAKING-----------------------------"
-nnoremap <Up> <NOP>
-nnoremap <Down> <NOP>
-nnoremap <Left> <NOP>
-nnoremap <Right> <NOP>
-inoremap <Up> <NOP>
-inoremap <Down> <NOP>
-inoremap <Left> <NOP>
-inoremap <Right> <NOP>
 
                                   "----------------------------GVIM SPECIFIC-----------------------------"
 set directory=.,$TEMP                                                                 " Gets rid of a windows specific error
@@ -118,3 +112,11 @@ set guioptions-=m                                                               
 set guioptions-=T                                                                     " remove toolbar
 set guioptions-=r                                                                     " remove right-hand scroll bar
 set guioptions-=L                                                                     " remove left-hand scroll bar
+
+                                  "-----------------------BETTER YOUCOMPLETEME EXPERIENCE----------------"
+autocmd CompleteDone * pclose
+set splitbelow
+set splitright
+
+
+" vim: set nowrap: 
