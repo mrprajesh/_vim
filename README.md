@@ -4,25 +4,19 @@ MY VIMRC
 This started as my vimrc for windows but into development, I realised that it worked actually better than my original .vimrc for linux. 
 So I present to you, fully cross-compatible vimrc for linux and Windows.
 
-All you need to do is install Vundle for vim and put this in your home folder 
+All you need to do is replace your vimrc with this one. It installs vim-plug if it isn't installed and starts the installation of plugins. __AWESOME!__
 
 Path : 
 
    ~/.vimrc for linux
 
-   $HOME/_vimrc for windows
+   $HOME/.vimrc or $HOME/_vimrc for windows
      
-Instructions on installing Vundle : 
-```
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-```
 
-Yes, it's that easy.
-
-For windows, you need to install git and curl before cloning to $HOME/vimfiles/bundle/Vundle.vim
+For windows, you need to install git and curl before running vim with this vimrc.
 
 
 Install plugins from inside vim by running the command
 ```
-:PluginInstall
+:PlugInstall
 ```
