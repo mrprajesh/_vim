@@ -5,9 +5,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'gmarik/Vundle.vim'                                             " Update Vundle
-Plug 'scrooloose/nerdcommenter', {'on': 'NERDTreeToggle'}            " Comment fast and professionally
-Plug 'scrooloose/nerdtree'                                           " Proper file explorer inside vim
+Plug 'scrooloose/nerdcommenter'                                      " Comment fast and professionally
+Plug 'scrooloose/nerdtree' , {'on': 'NERDTreeToggle'}                " Proper file explorer inside vim
 Plug 'Wombat'                                                        " Colorscheme
 Plug 'nanotech/jellybeans.vim'                                       " Colorscheme
 Plug 'morhetz/gruvbox'                                               " Colorscheme
@@ -35,6 +34,7 @@ Plug 'kien/ctrlp.vim'                                                " Fast fuzz
 Plug 'terryma/vim-multiple-cursors'                                  " Multiple Cursors like Sublime Text
 Plug 'LaTeX-Suite-aka-Vim-LaTeX'                                     " LaTeX editing for vim
 Plug 'kchmck/vim-coffee-script'                                      " Highlighting and syntax for coffeescript
+Plug 'fatih/vim-go'                                                  " Go completion and features
 call plug#end()                                                      " Vundle ends here
 
 syntax on
@@ -74,6 +74,7 @@ nnoremap <F3> :w<CR>:!pdflatex<Space>%<CR>:!evince<Space>%:r.pdf<CR>
                         " --------------------------------CONFIGS----------------------------- "
 
 let NERDTreeIgnore=['\.pyc$', '__pycache__']                         " Ignoring .pyc files and __pycache__ folder
+let g:go_fmt_command = "goimports"                                   " Rewrite go file with correct imports
 set wildignore+=*/bin/*,main,*/__pycache__/*,*.pyc,*.swp
 set backspace=indent,eol,start                                       " Make backspace work with end of line and indents
 set foldmethod=syntax                                                " Auto Add folds - Trigger with za
@@ -90,9 +91,10 @@ set incsearch                                                        " Increment
 set autoindent                                                       " Self explained
 set relativenumber                                                   " relative numbering (Current line in line 0)
 set number                                                           " Line numbers - Hybrid mode when used with rnu
-set wrap                                                             " I do like wrapping statements
+set nowrap                                                           " I don't like wrapping statements
 set laststatus=2                                                     " Show status line for even 1 file
 set tags=~/.mytags                                                   " Path to generated tags
+set mouse=nv
 let g:airline_powerline_fonts = 1                                    " Powerline fonts
 let g:airline#extensions#tabline#enabled = 1                         " Show buffers above
 
@@ -105,13 +107,3 @@ set guioptions-=m                                                    " remove me
 set guioptions-=T                                                    " remove toolbar
 set guioptions-=r                                                    " remove right-hand scroll bar
 set guioptions-=L                                                    " remove left-hand scroll bar
-
-
-
-                        "-----------------------BETTER YOUCOMPLETEME EXPERIENCE----------------"
-
-autocmd CompleteDone * pclose
-set splitbelow
-set splitright
-
-" vim: set nowrap:
