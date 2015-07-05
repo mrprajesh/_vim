@@ -1,4 +1,4 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
+if empty(glob('~/.nvim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall
@@ -7,10 +7,7 @@ endif
 call plug#begin()
 Plug 'scrooloose/nerdcommenter'                                      " Comment fast and professionally
 Plug 'scrooloose/nerdtree' , {'on': 'NERDTreeToggle'}                " Proper file explorer inside vim
-Plug 'Wombat'                                                        " Colorscheme
-Plug 'nanotech/jellybeans.vim'                                       " Colorscheme
-Plug 'morhetz/gruvbox'                                               " Colorscheme
-Plug 'tomasr/molokai'                                                " Colorscheme
+Plug 'flazz/vim-colorschemes'                                        " All popular Colorscheme
 Plug 'tpope/vim-surround'                                            " Quick Surround with tags or Brackets
 Plug 'octol/vim-cpp-enhanced-highlight'                              " Enhanced syntax highlight for CPP files
 Plug 'Lokaltog/vim-easymotion'                                       " Quick jumping between lines
@@ -32,9 +29,9 @@ Plug 'nvie/vim-flake8'                                               " Point out
 Plug 'bling/vim-airline'                                             " Who doesn't know about vim airline plugin
 Plug 'kien/ctrlp.vim'                                                " Fast fuzzy file searching
 Plug 'terryma/vim-multiple-cursors'                                  " Multiple Cursors like Sublime Text
-Plug 'LaTeX-Suite-aka-Vim-LaTeX'                                     " LaTeX editing for vim
 Plug 'kchmck/vim-coffee-script'                                      " Highlighting and syntax for coffeescript
 Plug 'fatih/vim-go'                                                  " Go completion and features
+Plug 'KabbAmine/zeavim.vim'                                          " Direct documentation access
 call plug#end()                                                      " Vundle ends here
 
 syntax on
@@ -64,8 +61,8 @@ nmap ,, <leader><leader>s
 
 nnoremap ,. <Esc>
 inoremap ,. <Esc>
-nnoremap  <silent>   <tab>  :bnext<CR>
-nnoremap  <silent> <s-tab>  :bprevious<CR>
+nnoremap  <silent>   <tab>  mq:bnext<CR>`q
+nnoremap  <silent> <s-tab>  mq:bprevious<CR>`q
                                                                      " Switch buffers with Tab and Shift-Tab
 inoremap <// </<C-X><C-O><C-[>m'==`'
 nnoremap <F3> :w<CR>:!pdflatex<Space>%<CR>:!evince<Space>%:r.pdf<CR>
@@ -94,7 +91,8 @@ set number                                                           " Line numb
 set nowrap                                                           " I don't like wrapping statements
 set laststatus=2                                                     " Show status line for even 1 file
 set tags=~/.mytags                                                   " Path to generated tags
-set mouse=nv
+set mouse=nv                                                         " Allow mouse usage in normal and visual modes
+set nohlsearch                                                       " Do not highlight all search suggestions.
 let g:airline_powerline_fonts = 1                                    " Powerline fonts
 let g:airline#extensions#tabline#enabled = 1                         " Show buffers above
 
@@ -107,3 +105,4 @@ set guioptions-=m                                                    " remove me
 set guioptions-=T                                                    " remove toolbar
 set guioptions-=r                                                    " remove right-hand scroll bar
 set guioptions-=L                                                    " remove left-hand scroll bar
+set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
