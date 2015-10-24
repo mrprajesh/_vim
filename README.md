@@ -12,8 +12,7 @@ Path :
 
    $HOME/.vimrc or $HOME/_vimrc for windows
      
-
-For windows, you need to install git and curl before running vim with this vimrc.
+You need to install git and curl before running vim with this vimrc.
 
 
 Install plugins from inside vim by running the command
