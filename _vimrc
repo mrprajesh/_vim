@@ -1,10 +1,9 @@
 if empty(glob('~/.nvim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall
+    !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
-call plug#begin()
+let g:python_host_prog='/usr/bin/python2'
+call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdcommenter'                                      " Comment fast and professionally
 Plug 'scrooloose/nerdtree' , {'on': 'NERDTreeToggle'}                " Proper file explorer inside vim
 Plug 'flazz/vim-colorschemes'                                        " All popular Colorscheme
@@ -12,7 +11,6 @@ Plug 'tpope/vim-surround'                                            " Quick Sur
 Plug 'octol/vim-cpp-enhanced-highlight'                              " Enhanced syntax highlight for CPP files
 Plug 'Lokaltog/vim-easymotion'                                       " Quick jumping between lines
 Plug 'myusuf3/numbers.vim'                                           " Auto Toggle between relative and normal numbering
-Plug 'godlygeek/csapprox'                                            " Make gvim colorschemes work in Terminal (Liunx)
 Plug 'sjl/gundo.vim'                                                 " Graphical undo tree
 Plug 'marcweber/vim-addon-mw-utils'                                  " Vim Addons
 Plug 'garbas/vim-snipmate'                                           " Snippets for reusable code
@@ -32,41 +30,49 @@ Plug 'terryma/vim-multiple-cursors'                                  " Multiple 
 Plug 'kchmck/vim-coffee-script'                                      " Highlighting and syntax for coffeescript
 Plug 'fatih/vim-go'                                                  " Go completion and features
 Plug 'KabbAmine/zeavim.vim'                                          " Direct documentation access
+Plug 'Superbil/llvm.vim'                                             " LLVM highlighting
 call plug#end()                                                      " Vundle ends here
 
 syntax on
 filetype plugin indent on
 
 colorscheme jellybeans                                               " Set active Colorscheme
+nnoremap ,; ;
                                                                      " start commands with ; not :
 nnoremap ; :
-                                                                     " Indent everything in insert mode
-inoremap <F10> <Esc>mmgg=G`ma
-                                                                     " Indent everything in normal mode
-nnoremap <F10> <Esc>mmgg=G`m
-                                                                     " Turn on/off current line highlight
-nnoremap <F9> :set cul!<CR>
-                                                                     " Show open buffers and help in quick switching
-nnoremap <F5> :buffers<CR>:buffer<Space>
+                                                                     " Turn word to uppercase in insert mode
+inoremap <c-u> <Esc>viwUea
                                                                      " Toggle NERDTree without python compile files
 inoremap <F2> <Esc>:NERDTreeToggle<CR>a
                                                                      " Toggle NERDTree without python compile files
 nnoremap <F2> :NERDTreeToggle<CR>
+                                                                     " Turn on/off wrapping
+nnoremap <F4> :set wrap!<CR>
+                                                                     " Show open buffers and help in quick switching
+nnoremap <F5> :buffers<CR>:buffer<Space>
+                                                                     " Turn on/off current line highlight
+nnoremap <F9> :set cul!<CR>
+                                                                     " Indent everything in insert mode
+inoremap <F10> <Esc>mmgg=G`ma
+                                                                     " Indent everything in normal mode
+nnoremap <F10> <Esc>mmgg=G`m
                                                                      " comment current line with //
 nmap // <leader>ci
+                                                                     " comment current selection with //
+vmap // <leader>ci
                                                                      " w!! force write with sudo even if forgot sudo vim
 cmap w!! w !sudo tee > /dev/null %
                                                                      " Easy Motion shortcut. Try it!
 nmap ,, <leader><leader>s
 
-nnoremap ,. <Esc>
-inoremap ,. <Esc>
+inoremap jk <Esc>
+nnoremap <CR> o<Esc>
 nnoremap  <silent>   <tab>  mq:bnext<CR>`q
 nnoremap  <silent> <s-tab>  mq:bprevious<CR>`q
                                                                      " Switch buffers with Tab and Shift-Tab
 inoremap <// </<C-X><C-O><C-[>m'==`'
-nnoremap <F3> :w<CR>:!pdflatex<Space>%<CR>:!evince<Space>%:r.pdf<CR>
-
+nnoremap Q !!sh<CR>
+                                                                     " Replace current line with output of shell
 
                         " --------------------------------CONFIGS----------------------------- "
 
@@ -77,9 +83,10 @@ set backspace=indent,eol,start                                       " Make back
 set foldmethod=syntax                                                " Auto Add folds - Trigger with za
 set foldlevel=9999                                                   " Keep folds open by default
 set scrolloff=10                                                     " Scroll Offset below and above the cursor
-set shiftwidth=4                                                     " Indentation
-set tabstop=4                                                        " Tab = 4 Space
 set expandtab                                                        " Replace tab with spaces
+set tabstop=4                                                        " Tab = 4 Space
+set softtabstop=4                                                    " Act like there are tabs not spaces
+set shiftwidth=4                                                     " Indentation
 set hidden                                                           " Hide abandoned buffers without message
 set wildmenu                                                         " Tab command completion in vim
 set ignorecase                                                       " Ignore case while searching
@@ -97,6 +104,29 @@ let g:airline_powerline_fonts = 1                                    " Powerline
 let g:airline#extensions#tabline#enabled = 1                         " Show buffers above
 
 
+                        "---------------------------SMART CLIPBOARD----------------------------"
+vnoremap ,y "+yy
+nnoremap ,y "+yy
+vnoremap ,d "+dd
+nnoremap ,d "+dd
+vnoremap ,p "+p
+nnoremap ,p "+p
+vnoremap ,P "+P
+nnoremap ,P "+P
+                        "----------------------------ABBREVIATIONS-----------------------------"
+iabbrev @@g pallavagarwal07@gmail.com
+iabbrev @@i pallavag@iitk.ac.in
+iabbrev @@c pallavag@cse.iitk.ac.in
+
+                        "---------------------------HABIT--BREAKING----------------------------"
+inoremap <left> <nop>
+nnoremap <left> <nop>
+inoremap <right> <nop>
+inoremap <right> <nop>
+inoremap <up> <nop>
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <down> <nop>
 
                         "----------------------------GVIM SPECIFIC-----------------------------"
 
@@ -106,3 +136,53 @@ set guioptions-=T                                                    " remove to
 set guioptions-=r                                                    " remove right-hand scroll bar
 set guioptions-=L                                                    " remove left-hand scroll bar
 set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
+
+                        "--------------------------------HOOKS---------------------------------"
+augroup filetype_compile
+  autocmd!
+  autocmd FileType tex nnoremap <F3> mm:w<CR>:!pdflatex<Space>%<CR><CR><Return>`m
+augroup END
+
+                        "---------------------------OPERATOR-PENDING---------------------------"
+" Operate inside next block
+onoremap in( :<c-u>normal! f(vi(<CR>
+onoremap in{ :<c-u>normal! f{vi{<CR>
+onoremap in" :<c-u>normal! f"vi"<CR>
+onoremap in' :<c-u>normal! f'vi'<CR>
+onoremap in` :<c-u>normal! f`vi`<CR>
+" Operate inside previous block
+onoremap ip( :<c-u>normal! F)vi(<CR>
+onoremap ip{ :<c-u>normal! F}vi{<CR>
+onoremap ip" :<c-u>normal! F"vi"<CR>
+onoremap ip' :<c-u>normal! F'vi'<CR>
+onoremap ip` :<c-u>normal! F`vi`<CR>
+" Operate around next block
+onoremap an( :<c-u>normal! f(va(<CR>
+onoremap an{ :<c-u>normal! f{va{<CR>
+onoremap an" :<c-u>normal! f"va"<CR>
+onoremap an' :<c-u>normal! f'va'<CR>
+onoremap an` :<c-u>normal! f`va`<CR>
+" Operate around previous block
+onoremap ap( :<c-u>normal! F)va(<CR>
+onoremap ap{ :<c-u>normal! F}va{<CR>
+onoremap ap" :<c-u>normal! F"va"<CR>
+onoremap ap' :<c-u>normal! F'va'<CR>
+onoremap ap` :<c-u>normal! F`va`<CR>
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+" vim: nowrap:
