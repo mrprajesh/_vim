@@ -3,7 +3,7 @@ if empty(glob('~/.nvim/autoload/plug.vim'))
 endif
 
 let g:python_host_prog='/usr/bin/python2'
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.nvim/plugged')
 Plug 'scrooloose/nerdcommenter'                                      " Comment fast and professionally
 Plug 'scrooloose/nerdtree' , {'on': 'NERDTreeToggle'}                " Proper file explorer inside vim
 Plug 'flazz/vim-colorschemes'                                        " All popular Colorscheme
@@ -30,9 +30,12 @@ Plug 'terryma/vim-multiple-cursors'                                  " Multiple 
 Plug 'kchmck/vim-coffee-script'                                      " Highlighting and syntax for coffeescript
 Plug 'fatih/vim-go'                                                  " Go completion and features
 Plug 'KabbAmine/zeavim.vim'                                          " Direct documentation access
-Plug 'Superbil/llvm.vim'                                             " LLVM highlighting
+Plug 'Superbil/llvm.vim', { 'for': 'llvm' }                          " LLVM highlighting
+Plug 'rhysd/vim-clang-format'
+Plug '~/new_proj/vim/autorun'
 call plug#end()                                                      " Vundle ends here
 
+set shiftwidth=4                                                     " Indentation
 syntax on
 filetype plugin indent on
 
@@ -84,15 +87,15 @@ set foldmethod=syntax                                                " Auto Add 
 set foldlevel=9999                                                   " Keep folds open by default
 set scrolloff=10                                                     " Scroll Offset below and above the cursor
 set expandtab                                                        " Replace tab with spaces
-set tabstop=4                                                        " Tab = 4 Space
+"set tabstop=4                                                        " Tab = 4 Space
 set softtabstop=4                                                    " Act like there are tabs not spaces
-set shiftwidth=4                                                     " Indentation
 set hidden                                                           " Hide abandoned buffers without message
 set wildmenu                                                         " Tab command completion in vim
 set ignorecase                                                       " Ignore case while searching
 set smartcase                                                        " Case sensitive if Capital included in search
 set incsearch                                                        " Incremental Searching - Search as you type
 set autoindent                                                       " Self explained
+set smartindent
 set relativenumber                                                   " relative numbering (Current line in line 0)
 set number                                                           " Line numbers - Hybrid mode when used with rnu
 set nowrap                                                           " I don't like wrapping statements
@@ -102,6 +105,19 @@ set mouse=nv                                                         " Allow mou
 set nohlsearch                                                       " Do not highlight all search suggestions.
 let g:airline_powerline_fonts = 1                                    " Powerline fonts
 let g:airline#extensions#tabline#enabled = 1                         " Show buffers above
+
+
+" Lint Configs
+let g:clang_format#style_options = {
+            \ "AccessModifierOffset" : -4,
+            \ "IndentWidth" : 4,
+            \ "TabWidth" : 4,
+            \ "AllowShortIfStatementsOnASingleLine" : "false",
+            \ "AllowShortBlocksOnASingleLine" : "false",
+            \ "AllowShortLoopsOnASingleLine" : "false",
+            \ "AlwaysBreakTemplateDeclarations" : "true",
+            \ "Standard" : "C++11" }
+
 
 
                         "---------------------------SMART CLIPBOARD----------------------------"
@@ -141,6 +157,11 @@ set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
 augroup filetype_compile
   autocmd!
   autocmd FileType tex nnoremap <F3> mm:w<CR>:!pdflatex<Space>%<CR><CR><Return>`m
+augroup END
+
+augroup filetype_compile
+  autocmd!
+  autocmd BufWritePre *.c,*.cpp,*.objc,*.h ClangFormat
 augroup END
 
                         "---------------------------OPERATOR-PENDING---------------------------"
@@ -185,4 +206,5 @@ onoremap ap` :<c-u>normal! F`va`<CR>
 "
 "
 "
+" place ''~/.nvimrc''
 " vim: nowrap:
