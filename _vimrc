@@ -155,7 +155,7 @@ set guioptions-=L                                                    " remove le
 set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
 
                         "--------------------------------HOOKS---------------------------------"
-augroup filetype_compile
+augroup filetype_tex
   autocmd!
   autocmd FileType tex nnoremap <F3> mm:w<CR>:!pdflatex<Space>%<CR><CR><Return>`m
 augroup END
@@ -164,6 +164,8 @@ augroup filetype_compile
   autocmd!
   autocmd BufWritePre *.c,*.cpp,*.objc,*.h ClangFormat
 augroup END
+
+autocmd FileType python inoremap # X<c-h>#
 
                         "---------------------------OPERATOR-PENDING---------------------------"
 " Operate inside next block
