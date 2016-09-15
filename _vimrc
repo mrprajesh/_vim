@@ -31,11 +31,12 @@ Plug 'kchmck/vim-coffee-script'                                      " Highlight
 Plug 'fatih/vim-go'                                                  " Go completion and features
 Plug 'KabbAmine/zeavim.vim'                                          " Direct documentation access
 Plug 'Superbil/llvm.vim', { 'for': 'llvm' }                          " LLVM highlighting
+Plug 'kh3phr3n/python-syntax'
+Plug 'LnL7/vim-nix', { 'for': 'nix' }
 Plug 'rhysd/vim-clang-format'
 Plug '~/new_proj/vim/autorun'
 call plug#end()                                                      " Vundle ends here
 
-set shiftwidth=4                                                     " Indentation
 syntax on
 filetype plugin indent on
 
@@ -87,8 +88,9 @@ set foldmethod=syntax                                                " Auto Add 
 set foldlevel=9999                                                   " Keep folds open by default
 set scrolloff=10                                                     " Scroll Offset below and above the cursor
 set expandtab                                                        " Replace tab with spaces
-"set tabstop=4                                                        " Tab = 4 Space
+set tabstop=4                                                        " Tab = 4 Space
 set softtabstop=4                                                    " Act like there are tabs not spaces
+set shiftwidth=4                                                     " << and >> shift by 4 space
 set hidden                                                           " Hide abandoned buffers without message
 set wildmenu                                                         " Tab command completion in vim
 set ignorecase                                                       " Ignore case while searching
@@ -103,6 +105,7 @@ set laststatus=2                                                     " Show stat
 set tags=~/.mytags                                                   " Path to generated tags
 set mouse=nv                                                         " Allow mouse usage in normal and visual modes
 set nohlsearch                                                       " Do not highlight all search suggestions.
+set modeline                                                         " Turn on modeline
 let g:airline_powerline_fonts = 1                                    " Powerline fonts
 let g:airline#extensions#tabline#enabled = 1                         " Show buffers above
 
@@ -114,16 +117,24 @@ let g:clang_format#style_options = {
             \ "TabWidth" : 4,
             \ "AllowShortIfStatementsOnASingleLine" : "false",
             \ "AllowShortBlocksOnASingleLine" : "false",
+            \ "SortIncludes" : "false",
             \ "AllowShortLoopsOnASingleLine" : "false",
             \ "AlwaysBreakTemplateDeclarations" : "true",
-            \ "Standard" : "C++11" }
+            \ "Standard" : "Auto" }
 
+if has('persistent_undo')
+    let myUndoDir = expand(vimDir . '/undodir')
+    call system('mkdir -p' . vimDir)
+    call system('mkdir -p' . myUndoDir)
+    let &undodir = myUndoDir
+    set undofile
+endif
 
 
                         "---------------------------SMART CLIPBOARD----------------------------"
-vnoremap ,y "+yy
+vnoremap ,y "+y
 nnoremap ,y "+yy
-vnoremap ,d "+dd
+vnoremap ,d "+d
 nnoremap ,d "+dd
 vnoremap ,p "+p
 nnoremap ,p "+p
@@ -133,16 +144,6 @@ nnoremap ,P "+P
 iabbrev @@g pallavagarwal07@gmail.com
 iabbrev @@i pallavag@iitk.ac.in
 iabbrev @@c pallavag@cse.iitk.ac.in
-
-                        "---------------------------HABIT--BREAKING----------------------------"
-inoremap <left> <nop>
-nnoremap <left> <nop>
-inoremap <right> <nop>
-inoremap <right> <nop>
-inoremap <up> <nop>
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <down> <nop>
 
                         "----------------------------GVIM SPECIFIC-----------------------------"
 
