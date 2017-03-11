@@ -159,8 +159,10 @@ iabbrev @@i pallavag@iitk.ac.in
 iabbrev @@c pallavag@cse.iitk.ac.in
 
                         "----------------------------GVIM SPECIFIC-----------------------------"
-set directory=$HOME/.config/nvim/tmp                                 " Swap files in a single place
-set backupdir=$HOME/.config/nvim/tmp
+execute "set directory=" . expand(vimDir . "/tmp")
+                                                                     " Swap files in a single place
+execute "set backupdir=" . expand(vimDir . "/tmp")
+call system("mkdir -p ". expand(vimDir . "/tmp"))
 set guioptions-=m                                                    " remove menu bar
 set guioptions-=T                                                    " remove toolbar
 set guioptions-=r                                                    " remove right-hand scroll bar
