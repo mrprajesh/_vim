@@ -38,11 +38,14 @@ Plug '~/proj/Auto Run'
 Plug '~/proj/collaboration'
 Plug 'thanthese/Tortoise-Typing'
 Plug 'kh3phr3n/python-syntax'
+Plug 'derekwyatt/vim-scala'
+Plug 'majutsushi/tagbar'
 Plug 'digitaltoad/vim-pug'
 Plug 'leafgarland/typescript-vim'
 Plug 'dietsche/vim-lastplace'
 Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-sleuth'
+Plug 'rust-lang/rust.vim'
 call plug#end()                                                      " Vundle ends here
 
 set shiftwidth=4                                                     " Indentation
@@ -158,6 +161,16 @@ iabbrev @@g pallavagarwal07@gmail.com
 iabbrev @@i pallavag@iitk.ac.in
 iabbrev @@c pallavag@cse.iitk.ac.in
 
+"---------------------------HABIT--BREAKING----------------------------"
+inoremap <left> <nop>
+nnoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+nnoremap <up> <nop>
+inoremap <down> <nop>
+nnoremap <down> <nop>
+
                         "----------------------------GVIM SPECIFIC-----------------------------"
 execute "set directory=" . expand(vimDir . "/tmp")
                                                                      " Swap files in a single place
@@ -207,6 +220,12 @@ onoremap ap{ :<c-u>normal! F}va{<CR>
 onoremap ap" :<c-u>normal! F"va"<CR>
 onoremap ap' :<c-u>normal! F'va'<CR>
 onoremap ap` :<c-u>normal! F`va`<CR>
+
+if argc() > 1
+  silent blast " load last buffer
+  silent bfirst " switch back to the first
+endif
+
 "
 "
 "
