@@ -1,12 +1,9 @@
-let vimDir = '$HOME/.config/nvim'
-
-if empty(glob(vimDir . '/autoload/plug.vim'))
-    execute "!curl -fLo " . vimDir . "/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+if empty(glob('~/.vim/autoload/plug.vim'))
+    !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
-let g:python_host_prog=join(split(system('which nvim-python 2>/dev/null >&2 && which nvim-python || which python')), " ")
-
-call plug#begin(vimDir . '/plugged')
+let g:python_host_prog='/usr/bin/python2'
+call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdcommenter'                                      " Comment fast and professionally
 Plug 'scrooloose/nerdtree' , {'on': 'NERDTreeToggle'}                " Proper file explorer inside vim
 Plug 'flazz/vim-colorschemes'                                        " All popular Colorscheme
@@ -25,6 +22,7 @@ Plug 'godlygeek/tabular'                                             " Beautiful
 Plug 'plasticboy/vim-markdown'                                       " Better Markdown support for vim (NEEDS TABULAR)
 Plug 'jceb/vim-orgmode'                                              " Add OrgMode support like Emacs
 Plug 'cmdalias.vim'                                                  " Set up alias for accidental commands
+Plug 'Python-Syntax-Folding'                                         " Proper syntax folding for python
 Plug 'nvie/vim-flake8'                                               " Point out PEP8 inconsistencies
 Plug 'bling/vim-airline'                                             " Who doesn't know about vim airline plugin
 Plug 'kien/ctrlp.vim'                                                " Fast fuzzy file searching
@@ -33,23 +31,12 @@ Plug 'kchmck/vim-coffee-script'                                      " Highlight
 Plug 'fatih/vim-go'                                                  " Go completion and features
 Plug 'KabbAmine/zeavim.vim'                                          " Direct documentation access
 Plug 'Superbil/llvm.vim', { 'for': 'llvm' }                          " LLVM highlighting
-Plug 'rhysd/vim-clang-format'
-Plug 'LnL7/vim-nix', { 'for': 'nix' }
-Plug '~/proj/Auto Run'
-Plug '~/proj/collaboration'
-Plug 'thanthese/Tortoise-Typing'
 Plug 'kh3phr3n/python-syntax'
-Plug 'derekwyatt/vim-scala'
-Plug 'majutsushi/tagbar'
-Plug 'digitaltoad/vim-pug'
-Plug 'leafgarland/typescript-vim'
-Plug 'dietsche/vim-lastplace'
-Plug 'rust-lang/rust.vim'
-Plug 'tpope/vim-sleuth'
-Plug 'rust-lang/rust.vim'
+Plug 'LnL7/vim-nix', { 'for': 'nix' }
+Plug 'rhysd/vim-clang-format'
+Plug '~/new_proj/vim/autorun'
 call plug#end()                                                      " Vundle ends here
 
-set shiftwidth=4                                                     " Indentation
 syntax on
 filetype plugin indent on
 
@@ -78,7 +65,7 @@ nmap // <leader>ci
                                                                      " comment current selection with //
 vmap // <leader>ci
                                                                      " w!! force write with sudo even if forgot sudo vim
-cmap w!! w !sudo tee > /dev/null %<CR>:e!<CR><CR>
+cmap w!! w !sudo tee > /dev/null %
                                                                      " Easy Motion shortcut. Try it!
 nmap ,, <leader><leader>s
 
@@ -102,7 +89,8 @@ set foldlevel=9999                                                   " Keep fold
 set scrolloff=10                                                     " Scroll Offset below and above the cursor
 set expandtab                                                        " Replace tab with spaces
 set tabstop=4                                                        " Tab = 4 Space
-"set softtabstop=4                                                   " Act like there are tabs not spaces
+set softtabstop=4                                                    " Act like there are tabs not spaces
+set shiftwidth=4                                                     " << and >> shift by 4 space
 set hidden                                                           " Hide abandoned buffers without message
 set wildmenu                                                         " Tab command completion in vim
 set ignorecase                                                       " Ignore case while searching
@@ -114,21 +102,11 @@ set relativenumber                                                   " relative 
 set number                                                           " Line numbers - Hybrid mode when used with rnu
 set nowrap                                                           " I don't like wrapping statements
 set laststatus=2                                                     " Show status line for even 1 file
-"set tags=~/.mytags                                                   " Path to generated tags
 set mouse=nv                                                         " Allow mouse usage in normal and visual modes
 set nohlsearch                                                       " Do not highlight all search suggestions.
 set modeline                                                         " Turn on modeline
-
 let g:airline_powerline_fonts = 1                                    " Powerline fonts
 let g:airline#extensions#tabline#enabled = 1                         " Show buffers above
-
-if has('persistent_undo')
-    let myUndoDir = expand(vimDir . '/undodir')
-    call system('mkdir -p' . vimDir)
-    call system('mkdir -p' . myUndoDir)
-    let &undodir = myUndoDir
-    set undofile
-endif
 
 
 " Lint Configs
@@ -138,17 +116,13 @@ let g:clang_format#style_options = {
             \ "TabWidth" : 4,
             \ "AllowShortIfStatementsOnASingleLine" : "false",
             \ "AllowShortBlocksOnASingleLine" : "false",
+            \ "SortIncludes" : "false",
             \ "AllowShortLoopsOnASingleLine" : "false",
             \ "AlwaysBreakTemplateDeclarations" : "true",
-            \ "PointerAlignment" : "Right",
-            \ "DerivePointerAlignment" : "false",
-            \ "SortIncludes" : "false",
-            \ "ColumnLimit" : 90,
             \ "Standard" : "Auto" }
 
 
-
-"---------------------------SMART CLIPBOARD----------------------------"
+                        "---------------------------SMART CLIPBOARD----------------------------"
 vnoremap ,y "+y
 nnoremap ,y "+yy
 vnoremap ,d "+d
@@ -157,26 +131,14 @@ vnoremap ,p "+p
 nnoremap ,p "+p
 vnoremap ,P "+P
 nnoremap ,P "+P
-"----------------------------ABBREVIATIONS-----------------------------"
+                        "----------------------------ABBREVIATIONS-----------------------------"
 iabbrev @@g pallavagarwal07@gmail.com
 iabbrev @@i pallavag@iitk.ac.in
 iabbrev @@c pallavag@cse.iitk.ac.in
 
-"---------------------------HABIT--BREAKING----------------------------"
-inoremap <left> <nop>
-nnoremap <left> <nop>
-inoremap <right> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-nnoremap <up> <nop>
-inoremap <down> <nop>
-nnoremap <down> <nop>
-
                         "----------------------------GVIM SPECIFIC-----------------------------"
-execute "set directory=" . expand(vimDir . "/tmp")
-                                                                     " Swap files in a single place
-execute "set backupdir=" . expand(vimDir . "/tmp")
-call system("mkdir -p ". expand(vimDir . "/tmp"))
+
+set directory=.,$TEMP                                                " Gets rid of a windows specific error
 set guioptions-=m                                                    " remove menu bar
 set guioptions-=T                                                    " remove toolbar
 set guioptions-=r                                                    " remove right-hand scroll bar
@@ -184,14 +146,14 @@ set guioptions-=L                                                    " remove le
 set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
 
                         "--------------------------------HOOKS---------------------------------"
-augroup filetype_compile
+augroup filetype_tex
   autocmd!
   autocmd FileType tex nnoremap <F3> mm:w<CR>:!pdflatex<Space>%<CR><CR><Return>`m
 augroup END
 
 augroup filetype_compile
   autocmd!
-  autocmd BufWritePre *.c,*.h,*.cpp,*.objc,*.cc ClangFormat
+  autocmd BufWritePre *.c,*.cpp,*.objc,*.h ClangFormat
 augroup END
 
 autocmd FileType python inoremap # X<c-h>#
@@ -221,12 +183,6 @@ onoremap ap{ :<c-u>normal! F}va{<CR>
 onoremap ap" :<c-u>normal! F"va"<CR>
 onoremap ap' :<c-u>normal! F'va'<CR>
 onoremap ap` :<c-u>normal! F`va`<CR>
-
-if argc() > 1
-  silent blast " load last buffer
-  silent bfirst " switch back to the first
-endif
-
 "
 "
 "
@@ -244,4 +200,5 @@ endif
 "
 "
 "
+" place ''~/.nvimrc''
 " vim: nowrap:
