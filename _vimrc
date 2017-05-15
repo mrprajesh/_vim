@@ -16,13 +16,13 @@ Plug 'marcweber/vim-addon-mw-utils'                                  " Vim Addon
 Plug 'garbas/vim-snipmate'                                           " Snippets for reusable code
 Plug 'tpope/vim-fugitive'                                            " Git Wrapper
 Plug 'tomtom/tlib_vim'                                               " Needed for SnipMate :(
-Plug 'auto-pairs-gentle'                                             " Auto insert matching brackets
-Plug 'autoswap.vim'                                                  " Make vim stop with swap messages intelligently
+"Plug 'auto-pairs-gentle'                                             " Auto insert matching brackets
+"Plug 'autoswap.vim'                                                  " Make vim stop with swap messages intelligently
 Plug 'godlygeek/tabular'                                             " Beautiful Alignment when needed
 Plug 'plasticboy/vim-markdown'                                       " Better Markdown support for vim (NEEDS TABULAR)
 Plug 'jceb/vim-orgmode'                                              " Add OrgMode support like Emacs
-Plug 'cmdalias.vim'                                                  " Set up alias for accidental commands
-Plug 'Python-Syntax-Folding'                                         " Proper syntax folding for python
+"Plug 'cmdalias.vim'                                                  " Set up alias for accidental commands
+"Plug 'Python-Syntax-Folding'                                         " Proper syntax folding for python
 Plug 'nvie/vim-flake8'                                               " Point out PEP8 inconsistencies
 Plug 'bling/vim-airline'                                             " Who doesn't know about vim airline plugin
 Plug 'kien/ctrlp.vim'                                                " Fast fuzzy file searching
